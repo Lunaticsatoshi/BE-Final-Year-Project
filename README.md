@@ -4,7 +4,7 @@ A Final year project for setting up a business to compare prices from hundreds o
 All Detail of the projects have been made available
 
 ## Work In Progress
-- FrontEnd
+
 [x] Design the Frontened
 [x] Mock in Normal HTML
 [ ] Set up a Next JS frontend
