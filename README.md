@@ -5,14 +5,14 @@ All Detail of the projects have been made available
 
 ## Work In Progress
 
- - Frontwnd
+ - Frontend
     * [x] Design the Frontened
     * [x] Mock in Normal HTML
     * [x] Set up a Next JS frontend
 
-- Backend
-[x] Study The Cloud billing API's
-[x] Find the cloud billing API's
-[ ] Integration with frontend
+ - Backend
+    * [x] Study The Cloud billing API's
+    * [x] Find the cloud billing API's
+    * [x] Integration with frontend
 
 .... More to be added soon 
