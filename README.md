@@ -5,9 +5,10 @@ All Detail of the projects have been made available
 
 ## Work In Progress
 
-[x] Design the Frontened
-[x] Mock in Normal HTML
-[ ] Set up a Next JS frontend
+ - Frontwnd
+    * [x] Design the Frontened
+    * [x] Mock in Normal HTML
+    * [x] Set up a Next JS frontend
 
 - Backend
 [x] Study The Cloud billing API's
