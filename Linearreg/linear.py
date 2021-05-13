@@ -30,7 +30,34 @@ def linear_training(X_train,X_test,y_train,y_test,X_lately):
     forecast_set = clf.predict(X_lately)
     df['Forecast'] = np.nan
     last_date = df.iloc[-1].name
-    print(last_date)
+    # print(last_date)
+    last_unix = last_date
+    one_day = 86400
+    next_unix = last_unix + one_day
+
+    for i in forecast_set:
+        next_date = datetime.datetime.fromtimestamp(next_unix)
+        next_unix += one_day
+        df.loc[next_date] = [np.nan for _ in range(len(df.columns)-1)] + [i]
+
+    df['Month End'].plot()
+    df['Forecast'].plot()
+    plt.legend(loc=4)
+    plt.xlabel('Date')
+    plt.ylabel('Price')
+    plt.show()
+    with open('azure_model.pkl','wb') as File:
+        pickle.dump(clf,File)
+    print(forecast_set, accuracy, forecast_out)
+
+def svm_training(X_train,X_test,y_train,y_test,X_lately):
+    clf = svm.SVR()
+    clf.fit(X_train, y_train)
+    accuracy = clf.score(X_test, y_test)
+    forecast_set = clf.predict(X_lately)
+    df['Forecast'] = np.nan
+    last_date = df.iloc[-1].name
+    # print(last_date)
     last_unix = last_date
     one_day = 86400
     next_unix = last_unix + one_day
@@ -47,19 +74,10 @@ def linear_training(X_train,X_test,y_train,y_test,X_lately):
     plt.ylabel('Price')
     plt.show()
     print(forecast_set, accuracy, forecast_out)
-
-def svm_training(X_train,X_test,y_train,y_test,X_lately):
-    clf = svm.SVR()
-    clf.fit(X_train, y_train)
-    accuracy = clf.score(X_test, y_test)
-    forecast_set = clf.predict(X_lately)
-    df['Forecast'] = np.nan
-    df[''] 
-    print(forecast_set, accuracy, forecast_out)
     
 
 if __name__ == '__main__':
-    df = pd.read_csv("./data/AWS_CSV.csv")
+    df = pd.read_csv("./data/AZURE_CSV.csv")
     df = process_data(df) 
     forecast_col = 'Month End' 
     df.fillna(-99999, inplace = True)
@@ -77,7 +95,7 @@ if __name__ == '__main__':
     y = np.array(df['label'])
 
     X_train, X_test, y_train, y_test = train_test_splitting(X,y)
-
+    print(X_lately)
     linear_training(X_train,X_test,y_train,y_test,X_lately)
     # svm_training(X_train,X_test,y_train,y_test,X_lately)
 
