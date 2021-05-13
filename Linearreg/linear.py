@@ -46,8 +46,8 @@ def linear_training(X_train,X_test,y_train,y_test,X_lately):
     plt.xlabel('Date')
     plt.ylabel('Price')
     plt.show()
-    with open('azure_model.pkl','wb') as File:
-        pickle.dump(clf,File)
+    # with open('azure_model.pkl','wb') as File:
+    #     pickle.dump(clf,File)
     print(forecast_set, accuracy, forecast_out)
 
 def svm_training(X_train,X_test,y_train,y_test,X_lately):
