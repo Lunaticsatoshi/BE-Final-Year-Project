@@ -1,5 +1,7 @@
 from flask import jsonify, request
 from flask_restful import Resource, reqparse
+from datetime import date, timedelta
+from utilities.predict_price import predict_gcp_price
 
 
 prediction_post_args = reqparse.RequestParser()
@@ -12,5 +14,6 @@ class Prediction(Resource):
 
     def post(self):
         args = prediction_post_args.parse_args()
-        result = jsonify({"AWS": args})
+        prediction_result = predict_gcp_price()
+        result = jsonify({"AWS": prediction_result})
         return result
