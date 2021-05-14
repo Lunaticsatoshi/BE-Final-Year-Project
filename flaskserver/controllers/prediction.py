@@ -1,6 +1,5 @@
 from flask import jsonify, request
 from flask_restful import Resource, reqparse
-from datetime import date, timedelta
 from utilities.predict_price import predict_gcp_price
 
 
