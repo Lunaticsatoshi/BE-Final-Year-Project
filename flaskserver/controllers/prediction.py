@@ -1,5 +1,9 @@
 from flask import jsonify, request
-from flask_restful import Resource
+from flask_restful import Resource, reqparse
+
+
+prediction_post_args = reqparse.RequestParser()
+prediction_post_args.add_argument("name", type=str, help="Send the name of the Prediction")
 
 class Prediction(Resource):
     def get(self):
@@ -7,5 +11,6 @@ class Prediction(Resource):
         return result
 
     def post(self):
-        print(request.form['key'])
-        return {}
+        args = prediction_post_args.parse_args()
+        result = jsonify({"AWS": args})
+        return result
