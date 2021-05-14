@@ -27,7 +27,7 @@ def linear_training(X_train,X_test,y_train,y_test,X_lately):
     clf = LinearRegression(n_jobs=-1)
     clf.fit(X_train, y_train)
     accuracy = clf.score(X_test, y_test)
-    forecast_set = clf.predict(X_lately)
+    forecast_set = clf.predict([[2,8,128,2,236.0,212.0,54.1,52]])
     df['Forecast'] = np.nan
     last_date = df.iloc[-1].name
     # print(last_date)
@@ -46,8 +46,9 @@ def linear_training(X_train,X_test,y_train,y_test,X_lately):
     plt.xlabel('Date')
     plt.ylabel('Price')
     plt.show()
-    # with open('azure_model.pkl','wb') as File:
-    #     pickle.dump(clf,File)
+    with open('azure_model.pkl','wb') as File:
+        pickle.dump(clf,File)
+    File.close()
     print(forecast_set, accuracy, forecast_out)
 
 def svm_training(X_train,X_test,y_train,y_test,X_lately):
