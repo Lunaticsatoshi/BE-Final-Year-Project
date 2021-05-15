@@ -2,12 +2,12 @@ import pickle
 from datetime import date, timedelta
 
 
-def predict_gcp_price():
+def predict_gcp_price(input_features):
     new_forecast = {}
     with open("../models/gcp_model.pkl","rb") as File:
         clf = pickle.load(File)
     File.close()
-    inputfeatures = [[-2.60671617e-01,  1.59104719e+00, -9.82589357e-02,  1.33424975e+00, 4.10833097e+00,  1.80812449e-01,  6.37374727e-01, -1.72337139e+00]]
+    inputfeatures = input_features
     forecast_list = clf.predict(inputfeatures).tolist()
     current_date = date.today()
     for forecast in forecast_list:
