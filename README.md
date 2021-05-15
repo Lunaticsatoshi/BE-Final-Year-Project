@@ -55,3 +55,13 @@ env/scripts/activate
 ```
 pip install -r requirements.txt
 ```
+
+5. Run Flask server
+```
+python flaskserver/server.py
+```
+
+6. Run tests
+```
+python tests/test.py
+```
