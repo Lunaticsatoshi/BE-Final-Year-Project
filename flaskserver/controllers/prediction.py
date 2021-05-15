@@ -1,6 +1,6 @@
 from flask import jsonify, request
 from flask_restful import Resource, reqparse
-from utilities.predict_price import predict_gcp_price
+from utilities.predict_price import predict_gcp_price, predict_aws_price, predict_azure_price
 from resources.data import get_data
 from resources.calculate_percent import calculate_percent
 
@@ -30,6 +30,8 @@ class Prediction(Resource):
         MN_PCT = calculate_percent(args["Month Start"],args["Month End"])
         data_array = [args["CPU Cores"],args["Memory"],args["Bandwidth"],args["Instances"],HR_PCT,DY_PCT,MN_PCT,args["Month End"]]
         input_array = get_data(data_array)
-        prediction_result = predict_gcp_price(input_array)
-        result = jsonify({"AWS": prediction_result})
+        aws_prediction_result = predict_aws_price(input_array)
+        gcp_prediction_result = predict_gcp_price(input_array)
+        azure_prediction_result = predict_azure_price(input_array)
+        result = jsonify({"AWS": aws_prediction_result, "GCP": gcp_prediction_result, "Azure": azure_prediction_result})
         return result
