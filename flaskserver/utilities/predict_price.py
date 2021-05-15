@@ -14,5 +14,4 @@ def predict_gcp_price(input_features):
         days_after = (current_date+timedelta(days=30)).isoformat()
         current_date = days_after 
         new_forecast[days_after] = forecast
-    print(new_forecast)
     return new_forecast
