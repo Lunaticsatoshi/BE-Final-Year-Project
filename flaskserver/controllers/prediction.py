@@ -30,6 +30,6 @@ class Prediction(Resource):
         MN_PCT = calculate_percent(args["Month Start"],args["Month End"])
         data_array = [args["CPU Cores"],args["Memory"],args["Bandwidth"],args["Instances"],HR_PCT,DY_PCT,MN_PCT,args["Month End"]]
         input_array = get_data(data_array)
-        prediction_result = predict_gcp_price()
-        result = jsonify({"AWS": input_array})
+        prediction_result = predict_gcp_price(input_array)
+        result = jsonify({"AWS": prediction_result})
         return result
