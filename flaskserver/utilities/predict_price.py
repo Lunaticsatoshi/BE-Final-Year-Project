@@ -11,7 +11,8 @@ def predict_gcp_price(input_features):
     forecast_list = clf.predict(inputfeatures).tolist()
     current_date = date.today()
     for forecast in forecast_list:
-        days_after = (current_date+timedelta(days=30)).isoformat()
-        current_date = days_after 
-        new_forecast[days_after] = forecast
+        days_after = current_date+timedelta(days=30)
+        current_date = days_after
+        new_date = days_after.isoformat() 
+        new_forecast[new_date] = forecast
     return new_forecast
