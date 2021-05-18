@@ -99,9 +99,11 @@ const styles = {
       textAlign: "center",
       display: "inline-flex",
       mb: [0, null, -6, null, null, "-40px", null, -3],
+      borderRadius: "5px",
       img: {
         position: "relative",
         height: [245, "auto"],
+        borderRadius: "5px"
       },
     },
     forms: {
