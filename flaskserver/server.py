@@ -1,9 +1,11 @@
 from flask import Flask
 from flask_restful import Api, Resource
+from flask_cors import CORS
 from controllers.api import HelloWorld
 from controllers.prediction import Prediction
 
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
 
 # @app.route('/')
