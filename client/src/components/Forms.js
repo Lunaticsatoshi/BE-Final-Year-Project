@@ -1,11 +1,11 @@
 import {useState} from "react"
 import { Label, Input, Select, Button, Slider, Box, Grid } from "theme-ui";
 
-export default function Forms() {
-  const [cpuCores, setCpuCores] = useState("");
-  const [memory, setMemory] = useState("");
-  const [bandwidth, setBandwidth] = useState("");
-  const [instances, setInstances] = useState("");
+export default function Forms({onAdd}) {
+  const [cpuCores, setCpuCores] = useState(2);
+  const [memory, setMemory] = useState(2);
+  const [bandwidth, setBandwidth] = useState(16);
+  const [instances, setInstances] = useState(2);
   const [hour1, setHour1] = useState("");
   const [hour2, setHour2] = useState("");
   const [dayStart, setDayStart] = useState("");
@@ -16,6 +16,26 @@ export default function Forms() {
   const onSubmit = (e) => {
     e.preventDefault()
     console.log(parseInt(cpuCores));
+    const prediction = {
+      "CPU Cores": parseInt(cpuCores),
+      "Memory": parseInt(memory),
+      "Bandwidth": parseInt(bandwidth),
+      "Instances": parseInt(instances),
+      "Hour 1": parseFloat(hour1),
+      "Hour 2": parseFloat(hour2),
+      "Day Start": parseFloat(dayStart),
+      "Day End": parseFloat(dayEnd),
+      "Month Start": parseFloat(monthStart),
+      "Month End": parseFloat(monthEnd),
+    };
+
+    onAdd(prediction);
+    setHour1("");
+    setHour2("");
+    setDayStart("");
+    setDayEnd("");
+    setMonthStart("");
+    setMonthEnd("");
   }
 
   return (
@@ -52,31 +72,31 @@ export default function Forms() {
       <Grid gap={2} columns={[2, "1fr 1fr"]}>
         <Box>
           <Label>Hour 1</Label>
-          <Input name="Hour1" id="Hour1" mb={3} sx={styles.forms.input} onChange={(e) => {setHour1(e.target.value)}} />
+          <Input value={hour1} name="Hour1" id="Hour1" mb={3} sx={styles.forms.input} onChange={(e) => {setHour1(e.target.value)}} />
         </Box>
         <Box>
           <Label>Hour 2</Label>
-          <Input name="Hour2" id="Hour2" mb={3} sx={styles.forms.input} onChange={(e) => {setHour2(e.target.value)}}/>
+          <Input value={hour2} name="Hour2" id="Hour2" mb={3} sx={styles.forms.input} onChange={(e) => {setHour2(e.target.value)}}/>
         </Box>
       </Grid>
       <Grid gap={2} columns={[2, "1fr 1fr"]}>
         <Box>
         <Label>Day Start</Label>
-          <Input name="DayStart" id="DayStart" mb={3} sx={styles.forms.input} onChange={(e) => {setDayStart(e.target.value)}} />
+          <Input value={dayStart} name="DayStart" id="DayStart" mb={3} sx={styles.forms.input} onChange={(e) => {setDayStart(e.target.value)}} />
         </Box>
         <Box>
         <Label>Day End</Label>
-          <Input name="DayEnd" id="DayEnd" mb={3} sx={styles.forms.input} onChange={(e) => {setDayEnd(e.target.value)}} />
+          <Input value={dayEnd} name="DayEnd" id="DayEnd" mb={3} sx={styles.forms.input} onChange={(e) => {setDayEnd(e.target.value)}} />
         </Box>
       </Grid>
       <Grid gap={2} columns={[2, "1fr 1fr"]}>
         <Box>
         <Label>Month Start</Label>
-          <Input name="MonthStart" id="MonthStart" mb={3} sx={styles.forms.input} onChange={(e) => {setMonthStart(e.target.value)}}/>
+          <Input value={monthStart} name="MonthStart" id="MonthStart" mb={3} sx={styles.forms.input} onChange={(e) => {setMonthStart(e.target.value)}}/>
         </Box>
         <Box>
         <Label>Month End</Label>
-          <Input name="MonthEnd" id="MonthEnd" mb={3} sx={styles.forms.input} onChange={(e) => {setMonthEnd(e.target.value)}}/>
+          <Input value={monthEnd} name="MonthEnd" id="MonthEnd" mb={3} sx={styles.forms.input} onChange={(e) => {setMonthEnd(e.target.value)}}/>
         </Box>
       </Grid>
       <Button>Submit</Button>
