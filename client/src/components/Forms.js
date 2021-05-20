@@ -1,10 +1,27 @@
+import {useState} from "react"
 import { Label, Input, Select, Button, Slider, Box, Grid } from "theme-ui";
 
 export default function Forms() {
+  const [cpuCores, setCpuCores] = useState("");
+  const [memory, setMemory] = useState(2);
+  const [bandwidth, setBandwidth] = useState(2);
+  const [instances, setInstances] = useState(2);
+  const [hour1, setHour1] = useState(2);
+  const [hour2, setHour2] = useState(2);
+  const [dayStart, setDayStart] = useState(2);
+  const [dayEnd, setDayEnd] = useState(2);
+  const [monthStart, setMonthStart] = useState(2);
+  const [monthEnd, setMonthEnd] = useState(2);
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    console.log(parseInt(cpuCores));
+  }
+
   return (
-    <Box as="form" sx={styles.forms} onSubmit={(e) => e.preventDefault()}>
+    <Box as="form" sx={styles.forms} onSubmit={onSubmit}>
       <Label>CPU Cores</Label>
-      <Select name="CPUCores" id="CPUCores" mb={3} sx={styles.forms.selectInput}>
+      <Select name="CPUCores" id="CPUCores" mb={3} sx={styles.forms.selectInput} onChange={(e) => {setCpuCores(e.target.value)}}>
         <option>2</option>
         <option>4</option>
         <option>8</option>
