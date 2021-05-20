@@ -1,19 +1,82 @@
 /** @jsx jsx */
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { jsx } from "theme-ui";
-import { Container, Box} from "theme-ui";
+import { Container, Box } from "theme-ui";
 import Forms from "components/Forms";
 import CardLineChart from "components/ChartCards/CardLineChart.js";
 
+import { buildChartData } from "utilities/util";
 
 export default function Banner() {
+  const [data, setData] = useState({});
+  const [casesType, setCasesType] = useState("AWS");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const dailyData = await fetchDailyData();
+      let chartData = buildChartData(dailyData, casesType);
+      setData(chartData);
+    };
+
+    fetchData();
+  }, []);
+
+  const fetchDailyData = async () => {
+    try {
+      // const {data} = await axios.get(
+      //   "https://disease.sh/v3/covid-19/historical/all?lastdays=120"
+      // );
+
+      const { data } = await axios.post("http://127.0.0.1:5000/predict", {
+        "CPU Cores": 2,
+        Memory: 4,
+        Bandwidth: 128,
+        Instances: 2,
+        "Hour 1": 0.29084,
+        "Hour 2": 0.68593,
+        "Day Start": 16.0685,
+        "Day End": 15.6746,
+        "Month Start": 255.34,
+        "Month End": 345.56,
+      });
+
+      console.log(data);
+      return data;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  // Add Prediction
+  const addPrediction = async (prediction) => {
+    const { data } = await axios.post("http://127.0.0.1:5000/predict", {
+      "CPU Cores": 2,
+      Memory: 4,
+      Bandwidth: 128,
+      Instances: 2,
+      "Hour 1": 0.29084,
+      "Hour 2": 0.68593,
+      "Day Start": 16.0685,
+      "Day End": 15.6746,
+      "Month Start": 255.34,
+      "Month End": 345.56,
+    });
+
+    setTasks([...tasks, data]);
+
+    // const id = Math.floor(Math.random() * 10000) + 1
+    // const newTask = { id, ...task }
+    // setTasks([...tasks, newTask])
+  };
   return (
     <section sx={styles.formPage}>
       <Container sx={styles.containerBox}>
         <Box sx={styles.contentBox}>
-            <Forms />
+          <Forms />
         </Box>
         <Box sx={styles.thumbnail}>
-          <CardLineChart />
+          <CardLineChart data={data} />
         </Box>
       </Container>
     </section>
@@ -79,6 +142,6 @@ const styles = {
     right: -165,
     zIndex: -1,
     display: ["none", "inline-block", "none", null, "inline-block"],
-    width: "50px"
+    width: "50px",
   },
 };
