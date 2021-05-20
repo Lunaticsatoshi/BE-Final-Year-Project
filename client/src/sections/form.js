@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { jsx } from "theme-ui";
-import { Container, Box } from "theme-ui";
+import { Container, Box, Alert, Close, Select } from "theme-ui";
 import Forms from "components/Forms";
 import CardLineChart from "components/ChartCards/CardLineChart.js";
 
@@ -10,13 +10,17 @@ import { buildChartData } from "utilities/util";
 
 export default function Banner() {
   const [data, setData] = useState({});
+  const [lineData, setLineData] = useState({});
+  const [alert, showAlert] = useState(true);
   const [casesType, setCasesType] = useState("AWS");
 
   useEffect(() => {
     const fetchData = async () => {
       const dailyData = await fetchDailyData();
+      setData(dailyData);
       let chartData = buildChartData(dailyData, casesType);
-      setData(chartData);
+      console.log(chartData);
+      setLineData(chartData);
     };
 
     fetchData();
@@ -24,10 +28,6 @@ export default function Banner() {
 
   const fetchDailyData = async () => {
     try {
-      // const {data} = await axios.get(
-      //   "https://disease.sh/v3/covid-19/historical/all?lastdays=120"
-      // );
-
       const { data } = await axios.post("http://127.0.0.1:5000/predict", {
         "CPU Cores": 2,
         Memory: 4,
@@ -51,16 +51,24 @@ export default function Banner() {
   // Add Prediction
   const addPrediction = async (prediction) => {
     console.log(prediction);
-    const { data } = await axios.post("http://127.0.0.1:5000/predict", prediction);
-
-    console.log(data);
+    const { data } = await axios.post(
+      "http://127.0.0.1:5000/predict",
+      prediction
+    );
+    setData(data);
 
     let chartData = buildChartData(data, casesType);
-    setData(chartData);
+    setLineData(chartData);
+  };
 
-    // const id = Math.floor(Math.random() * 10000) + 1
-    // const newTask = { id, ...task }
-    // setTasks([...tasks, newTask])
+  const changeCaseType = (e) => {
+    setCasesType(e.target.value);
+    let chartData = buildChartData(data, casesType);
+    setLineData(chartData);
+  }
+
+  const closeAlert = () => {
+    showAlert(false);
   };
   return (
     <section sx={styles.formPage}>
@@ -69,7 +77,24 @@ export default function Banner() {
           <Forms onAdd={addPrediction} />
         </Box>
         <Box sx={styles.thumbnail}>
-          <CardLineChart data={data} />
+          <Select
+            name="caseType"
+            id="CASETYPE"
+            mb={3}
+            sx={styles.selectInput}
+            onChange={changeCaseType}
+          >
+            <option>AWS</option>
+            <option>GCP</option>
+            <option>Azure</option>
+          </Select>
+          {alert && (
+            <Alert sx={styles.alerts} onClick={closeAlert}>
+              Beep boop, this is an alert!
+              <Close ml="auto" mr={-2} />
+            </Alert>
+          )}
+          <CardLineChart data={lineData} />
         </Box>
       </Container>
     </section>
@@ -136,5 +161,21 @@ const styles = {
     zIndex: -1,
     display: ["none", "inline-block", "none", null, "inline-block"],
     width: "50px",
+  },
+  alerts: {
+    // primary: {
+    //   color: 'background',
+    //   bg: 'primary',
+    // },
+    // muted: {
+    //   color: 'text',
+    //   bg: 'muted',
+    // },
+    mb: "60px",
+  },
+  selectInput: {
+    backgroundColor: "#000000",
+    color: "#FFFFFF",
+    borderColor: "gray",
   },
 };

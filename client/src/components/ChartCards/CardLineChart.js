@@ -51,7 +51,7 @@ export default function CardLineChart({data}) {
   return (
     <div sx={styles.container}>
       <h2>Line Example</h2>
-      {data[0] ? (
+      {data.length > 0 ? (
         <Line
           data={{
             datasets: [
