@@ -8,7 +8,7 @@ export default [
       label: 'Compare',
     },
     {
-      path: '/optimize',
+      path: '/optimization',
       label: 'Optimize',
     },
     {
