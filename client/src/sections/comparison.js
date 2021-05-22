@@ -3,7 +3,7 @@ import { jsx, Container, Box, Flex } from "theme-ui";
 import { keyframes } from "@emotion/core";
 import React, { useState } from "react";
 import Carousel from "react-multi-carousel";
-import PriceCard from "components/price-card";
+import ComparisonCard from "components/comparison-cards";
 import ButtonGroup from "components/button-group";
 import SectionHeader from "components/section-header";
 import { IoIosCheckmarkCircle } from "react-icons/io";
@@ -14,7 +14,8 @@ const packages = {
       id: 1,
       name: "Digital Ocean",
       description: "CPU-Optimized Droplets",
-      buttonText: "Start free trail",
+      package: "hourly",
+      buttonText: "Create account",
       priceWithUnit: "$0.13393",
       link: "https://www.digitalocean.com/",
       points: [
@@ -48,6 +49,7 @@ const packages = {
       id: 2,
       name: "Linode",
       description: "Dedicated CPU Plans",
+      package: "hourly",
       priceWithUnit: "$0.045 ",
       buttonText: "Create account",
       anotherOption: "Or Start 14 Days trail",
@@ -84,6 +86,7 @@ const packages = {
       headerIcon: <IoIosCheckmarkCircle />,
       name: "Vultr",
       description: "High Performance Compute",
+      package: "hourly",
       priceWithUnit: "$0.060",
       buttonText: "Create account",
       anotherOption: "Or Start 14 Days trail",
@@ -121,7 +124,8 @@ const packages = {
       id: 1,
       name: "Digital Ocean",
       description: "CPU-Optimized Droplets",
-      buttonText: "Start free trail",
+      package: "monthly",
+      buttonText: "Create account",
       priceWithUnit: "$90.00",
       link: "https://www.digitalocean.com/",
       points: [
@@ -156,6 +160,7 @@ const packages = {
       name: "Linode",
       description: "Dedicated CPU Plans",
       priceWithUnit: "$60.00 ",
+      package: "monthly",
       buttonText: "Create account",
       anotherOption: "Or Start 14 Days trail",
       link: "https://www.linode.com/",
@@ -191,6 +196,7 @@ const packages = {
       headerIcon: <IoIosCheckmarkCircle />,
       name: "Vultr",
       description: "High Performance Compute",
+      package: "monthly",
       priceWithUnit: "$40.00",
       buttonText: "Create account",
       anotherOption: "Or Start 14 Days trail",
@@ -315,7 +321,7 @@ export default function Package() {
           <Carousel {...sliderParams}>
             {state.pricingPlan.map((packageData) => (
               <Box sx={styles.pricingItem} key={packageData.id}>
-                <PriceCard data={packageData} />
+                <ComparisonCard data={packageData} />
               </Box>
             ))}
           </Carousel>
