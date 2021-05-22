@@ -3,6 +3,7 @@ from flask_restful import Api, Resource
 from flask_cors import CORS
 from controllers.api import HelloWorld
 from controllers.prediction import Prediction
+from controllers.optimize import Optimize
 
 app = Flask(__name__)
 CORS(app)
@@ -14,6 +15,7 @@ api = Api(app)
 
 api.add_resource(HelloWorld, "/")
 api.add_resource(Prediction, "/predict")
+api.add_resource(Optimize, "/optimize")
 
 
 if __name__ == "__main__":
