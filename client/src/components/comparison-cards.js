@@ -12,6 +12,7 @@ export default function CloudComparisonCard({
     anotherOption,
     points,
     link,
+    currentPlan,
   },
 }) {
   return (
@@ -32,7 +33,7 @@ export default function CloudComparisonCard({
         <List items={points} childStyle={styles.listItem}/>
         <Text className="package__price" sx={styles.price}>
           {priceWithUnit}
-          <span>/Monthly</span>
+          <span>{currentPlan === "hourly" ? "/Hour" : "/Month"}</span>
         </Text>
         <Box sx={styles.buttonGroup}>
           <Button variant="primary" aria-label={buttonText} onClick={(e) => window.location.href=link}>
