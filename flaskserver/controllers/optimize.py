@@ -31,6 +31,6 @@ class Optimize(Resource):
         if optimization_result > 0.5:
             result = jsonify({"prediction": optimization_result, "message": "You have selected a great deal"})
         else:
-            result = jsonify({"prediction": optimization_result, "message": "Please change any one of the selected paeameters"})
+            result = jsonify({"prediction": optimization_result, "message": "Please change any one of the selected parameters"})
 
         return result
