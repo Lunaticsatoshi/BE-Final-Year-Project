@@ -1,5 +1,6 @@
 from flask import jsonify, request
 from flask_restful import Resource, reqparse
+from utilities.optimize_cloud import optimize_cloud_price
 
 
 optimization_post_args = reqparse.RequestParser()
@@ -12,15 +13,24 @@ class Optimize(Resource):
     def post(self):
         args = optimization_post_args.parse_args()
         cloud = args["Cloud"]
-        if cloud =='aws':
+        if cloud =='AWS':
             first=1.0
             second=0.0
             third=0.0
-        if cloud =='gcp':
+        if cloud =='GCP':
             first=0.0
             second=1.0
             third=0.0
-        if cloud =='azure':
+        if cloud =='Azure':
             first=0.0
             second=0.0
             third=1.0
+
+        input_array = [[first,second,third,args["Cores"],args["Pay"],args["Spot"]]]
+        optimization_result = optimize_cloud_price(input_array)
+        if optimization_result > 0.5:
+            result = jsonify({"prediction": optimization_result, "message": "You have selected a great deal"})
+        else:
+            result = jsonify({"prediction": optimization_result, "message": "Please change any one of the selected paeameters"})
+
+        return result
