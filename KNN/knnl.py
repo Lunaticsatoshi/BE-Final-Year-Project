@@ -10,7 +10,7 @@ from sklearn.neighbors import KNeighborsClassifier
 import pickle
 import os
 def knnLog(first,second,third,cores,pay,spot):
-    dataset = pd.read_csv('./controllers/data.csv')
+    dataset = pd.read_csv('./data/data.csv')
     X = dataset.iloc[:, :-1].values
     y = dataset.iloc[:, -1].values
 
