@@ -39,11 +39,6 @@ export default function CloudComparisonCard({
           <Button variant="primary" aria-label={buttonText} onClick={(e) => window.location.href=link}>
             {buttonText}
           </Button>
-          {anotherOption && (
-            <Button variant="textButton" className="free__trial" aria-label={anotherOption} sx={{color: '#FFFFFF'}} onClick={(e) => window.location.href=link }>
-              {anotherOption}
-            </Button>
-          )}
         </Box>
       </Box>
     </Card>
