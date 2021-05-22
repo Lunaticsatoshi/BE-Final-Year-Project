@@ -9,7 +9,7 @@ import SectionHeader from "components/section-header";
 import { IoIosCheckmarkCircle, IoIosCloseCircle } from "react-icons/io";
 
 const packages = {
-  monthly: [
+  hourly: [
     {
       id: 1,
       name: "Free Plan",
@@ -113,7 +113,7 @@ const packages = {
       ],
     },
   ],
-  annual: [
+  monthly: [
     {
       id: 1,
       name: "Free Plan",
@@ -238,22 +238,22 @@ const responsive = {
 };
 
 export default function Package() {
-  const { monthly, annual } = packages;
+  const { hourly, monthly } = packages;
   const [state, setState] = useState({
-    active: "monthly",
-    pricingPlan: monthly,
+    active: "hourly",
+    pricingPlan: hourly,
   });
 
   const handlePricingPlan = (plan) => {
-    if (plan === "annual") {
-      setState({
-        active: "annual",
-        pricingPlan: annual,
-      });
-    } else {
+    if (plan === "monthly") {
       setState({
         active: "monthly",
         pricingPlan: monthly,
+      });
+    } else {
+      setState({
+        active: "hourly",
+        pricingPlan: hourly,
       });
     }
   };
@@ -288,20 +288,20 @@ export default function Package() {
         <Flex sx={styles.buttonGroup}>
           <Box sx={styles.buttonGroupInner}>
             <button
+              className={state.active === "hourly" ? "active" : ""}
+              type="button"
+              arai-label="hourly"
+              onClick={() => handlePricingPlan("hourly")}
+            >
+              Hourly Plan
+            </button>
+            <button
               className={state.active === "monthly" ? "active" : ""}
               type="button"
-              arai-label="monthly"
+              arai-label="Annual"
               onClick={() => handlePricingPlan("monthly")}
             >
               Monthly Plan
-            </button>
-            <button
-              className={state.active === "annual" ? "active" : ""}
-              type="button"
-              arai-label="Annual"
-              onClick={() => handlePricingPlan("annual")}
-            >
-              Annual Plan
             </button>
           </Box>
         </Flex>
