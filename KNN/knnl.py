@@ -42,15 +42,18 @@ def knnLog(first,second,third,cores,pay,spot):
 
 
     # open a file, where you ant to store the data
-    d=os.getcwd()
-    d1=os.path.join(d,"models")
+    # d=os.getcwd()
+    # d1=os.path.join(d,"models")
     # print(d1)
-    file = open(d1+'\\modelknn.pkl', 'wb')
+    with open('modelknn.pkl','wb') as File:
+        pickle.dump(classifier,File)
+    File.close()
+    # file = open(d1+'\\modelknn.pkl', 'wb')
     #C:\Users\91937\BE-Final-Year-Project\project\addOn\modelknn.pkl
 
     # dump information to that file
-    pickle.dump(classifier, file)
-    file.close()
+    # pickle.dump(classifier, file)
+    # file.close()
     return infProb
 
 if __name__ == "__main__":
