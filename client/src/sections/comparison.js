@@ -296,7 +296,7 @@ export default function Package() {
   return (
     <section id="pricing" sx={styles.comparisonPage}>
       <Container>
-        <SectionHeader slogan="Our Pricing" title="Choose your pricing plan" />
+        <SectionHeader slogan="Virtual Machine Pricing" title="Choose The Best Pricing Plan" />
         <Flex sx={styles.buttonGroup}>
           <Box sx={styles.buttonGroupInner}>
             <button
@@ -353,6 +353,7 @@ const styles = {
   comparisonPage: {
     pt: ["140px", "145px", "155px", "170px", null, null, "180px", "215px"],
     pb: [2, null, 0, null, 2, 0, null, 5],
+    mb: "215px",
     position: "relative",
     zIndex: 2,
     "&::before": {
