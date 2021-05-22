@@ -79,7 +79,6 @@ const packages = {
     },
     {
       id: 3,
-      header: "Suggested",
       headerIcon: <IoIosCheckmarkCircle />,
       name: "Pro Master",
       description: "For pro level developers",
@@ -184,7 +183,6 @@ const packages = {
     },
     {
       id: 3,
-      header: "Suggested",
       headerIcon: <IoIosCheckmarkCircle />,
       name: "Pro Master",
       description: "For pro level developers",
