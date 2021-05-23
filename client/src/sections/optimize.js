@@ -49,7 +49,7 @@ export default function OptimizeBanner() {
               src={Performance}
               altText={data.message}
               title={data.message}
-              text={data.message}
+              text={data.text}
             />
           )}
         </Box>
