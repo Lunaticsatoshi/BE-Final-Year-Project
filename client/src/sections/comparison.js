@@ -1,255 +1,279 @@
 /** @jsx jsx */
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { jsx, Container, Box, Flex } from "theme-ui";
 import { keyframes } from "@emotion/core";
-import React, { useState } from "react";
 import Carousel from "react-multi-carousel";
 import ComparisonCard from "components/comparison-cards";
 import ButtonGroup from "components/button-group";
 import SectionHeader from "components/section-header";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 
-const packages = {
-  hourly: [
-    {
-      id: 1,
-      name: "Digital Ocean",
-      description: "CPU-Optimized Droplets",
-      currentPlan: "hourly",
-      buttonText: "Create account",
-      priceWithUnit: "$0.13393",
-      link: "https://www.digitalocean.com/",
-      points: [
-        {
-          id: 1,
-          icon: <IoIosCheckmarkCircle />,
-          text: "4vCPUs",
-          isAvailable: true,
-        },
-        {
-          id: 2,
-          icon: <IoIosCheckmarkCircle />,
-          text: "8GB Memory",
-          isAvailable: true,
-        },
-        {
-          id: 3,
-          icon: <IoIosCheckmarkCircle />,
-          text: "100GB SSD",
-          isAvailable: true,
-        },
-        {
-          id: 4,
-          icon: <IoIosCheckmarkCircle />,
-          text: "5TB Transfer Bandwidth",
-          isAvailable: true,
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: "Linode",
-      description: "Dedicated CPU Plans",
-      currentPlan: "hourly",
-      priceWithUnit: "$0.045 ",
-      buttonText: "Create account",
-      anotherOption: "Or Start 14 Days trail",
-      link: "https://www.linode.com/",
-      points: [
-        {
-          id: 1,
-          icon: <IoIosCheckmarkCircle />,
-          text: "4 Cores CPU",
-          isAvailable: true,
-        },
-        {
-          id: 2,
-          icon: <IoIosCheckmarkCircle />,
-          text: "8GB Memory",
-          isAvailable: true,
-        },
-        {
-          id: 3,
-          icon: <IoIosCheckmarkCircle />,
-          text: "160GB SSD",
-          isAvailable: true,
-        },
-        {
-          id: 4,
-          icon: <IoIosCheckmarkCircle />,
-          text: "5TB Transfer Bandwidth",
-          isAvailable: true,
-        },
-      ],
-    },
-    {
-      id: 3,
-      headerIcon: <IoIosCheckmarkCircle />,
-      name: "Vultr",
-      description: "High Performance Compute",
-      currentPlan: "hourly",
-      priceWithUnit: "$0.060",
-      buttonText: "Create account",
-      anotherOption: "Or Start 14 Days trail",
-      link: "https://www.vultr.com/",
-      points: [
-        {
-          id: 1,
-          icon: <IoIosCheckmarkCircle />,
-          text: "4 Cores CPU",
-          isAvailable: true,
-        },
-        {
-          id: 2,
-          icon: <IoIosCheckmarkCircle />,
-          text: "8GB Memory",
-          isAvailable: true,
-        },
-        {
-          id: 3,
-          icon: <IoIosCheckmarkCircle />,
-          text: "160GB SSD",
-          isAvailable: true,
-        },
-        {
-          id: 4,
-          icon: <IoIosCheckmarkCircle />,
-          text: "4TB Transfer Bandwidth",
-          isAvailable: true,
-        },
-      ],
-    },
-  ],
-  monthly: [
-    {
-      id: 1,
-      name: "Digital Ocean",
-      description: "CPU-Optimized Droplets",
-      currentPlan: "monthly",
-      buttonText: "Create account",
-      priceWithUnit: "$90.00",
-      link: "https://www.digitalocean.com/",
-      points: [
-        {
-          id: 1,
-          icon: <IoIosCheckmarkCircle />,
-          text: "4vCPUs",
-          isAvailable: true,
-        },
-        {
-          id: 2,
-          icon: <IoIosCheckmarkCircle />,
-          text: "8GB Memory",
-          isAvailable: true,
-        },
-        {
-          id: 3,
-          icon: <IoIosCheckmarkCircle />,
-          text: "100GB SSD",
-          isAvailable: true,
-        },
-        {
-          id: 4,
-          icon: <IoIosCheckmarkCircle />,
-          text: "5TB Transfer Bandwidth",
-          isAvailable: true,
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: "Linode",
-      description: "Dedicated CPU Plans",
-      priceWithUnit: "$60.00 ",
-      currentPlan: "monthly",
-      buttonText: "Create account",
-      anotherOption: "Or Start 14 Days trail",
-      link: "https://www.linode.com/",
-      points: [
-        {
-          id: 1,
-          icon: <IoIosCheckmarkCircle />,
-          text: "4 Cores CPU",
-          isAvailable: true,
-        },
-        {
-          id: 2,
-          icon: <IoIosCheckmarkCircle />,
-          text: "8GB Memory",
-          isAvailable: true,
-        },
-        {
-          id: 3,
-          icon: <IoIosCheckmarkCircle />,
-          text: "160GB SSD",
-          isAvailable: true,
-        },
-        {
-          id: 4,
-          icon: <IoIosCheckmarkCircle />,
-          text: "5TB Transfer Bandwidth",
-          isAvailable: true,
-        },
-      ],
-    },
-    {
-      id: 3,
-      headerIcon: <IoIosCheckmarkCircle />,
-      name: "Vultr",
-      description: "High Performance Compute",
-      currentPlan: "monthly",
-      priceWithUnit: "$40.00",
-      buttonText: "Create account",
-      anotherOption: "Or Start 14 Days trail",
-      link: "https://www.vultr.com/",
-      points: [
-        {
-          id: 1,
-          icon: <IoIosCheckmarkCircle />,
-          text: "4 Cores CPU",
-          isAvailable: true,
-        },
-        {
-          id: 2,
-          icon: <IoIosCheckmarkCircle />,
-          text: "8GB Memory",
-          isAvailable: true,
-        },
-        {
-          id: 3,
-          icon: <IoIosCheckmarkCircle />,
-          text: "160GB SSD",
-          isAvailable: true,
-        },
-        {
-          id: 4,
-          icon: <IoIosCheckmarkCircle />,
-          text: "4TB Transfer Bandwidth",
-          isAvailable: true,
-        },
-      ],
-    },
-  ],
-};
-
-const responsive = {
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 3,
-    draggable: false,
-  },
-  tablet: {
-    breakpoint: { max: 1023, min: 640 },
-    items: 2,
-    draggable: true,
-  },
-  mobile: {
-    breakpoint: { max: 639, min: 0 },
-    items: 1,
-    draggable: true,
-  },
-};
-
 export default function Package() {
+  const [hourlyPrice, setHourlyPrice] = useState({"Digital Ocean": "$0.13393", "Linode": "$0.045", "Vultr": "$0.060"});
+  const [monthlyPrice, setMonthlyPrice] = useState({"Digital Ocean": "$90.00", "Linode": "$60.00", "Vultr": "$40.00"});
+  useEffect(() => {
+    const fetchData = async () => {
+      const {hourly,monthly} = await fetchDailyPrices();
+      setHourlyPrice(hourly);
+      setMonthlyPrice(monthly);
+    };
+
+    fetchData();
+  },[]);
+
+  const fetchDailyPrices =  async () => {
+    try {
+      const { data } = await axios.get("http://127.0.0.1:5000/compare");
+      console.log(data);
+      return data
+    } catch (error) {
+      return error;
+    }
+  }
+
+  console.log(hourlyPrice["Linode"]);
+  const packages = {
+    hourly: [
+      {
+        id: 1,
+        name: "Digital Ocean",
+        description: "CPU-Optimized Droplets",
+        currentPlan: "hourly",
+        buttonText: "Create account",
+        priceWithUnit: hourlyPrice["Digital Ocean"],
+        link: "https://www.digitalocean.com/",
+        points: [
+          {
+            id: 1,
+            icon: <IoIosCheckmarkCircle />,
+            text: "4vCPUs",
+            isAvailable: true,
+          },
+          {
+            id: 2,
+            icon: <IoIosCheckmarkCircle />,
+            text: "8GB Memory",
+            isAvailable: true,
+          },
+          {
+            id: 3,
+            icon: <IoIosCheckmarkCircle />,
+            text: "100GB SSD",
+            isAvailable: true,
+          },
+          {
+            id: 4,
+            icon: <IoIosCheckmarkCircle />,
+            text: "5TB Transfer Bandwidth",
+            isAvailable: true,
+          },
+        ],
+      },
+      {
+        id: 2,
+        name: "Linode",
+        description: "Dedicated CPU Plans",
+        currentPlan: "hourly",
+        priceWithUnit: hourlyPrice["Linode"],
+        buttonText: "Create account",
+        anotherOption: "Or Start 14 Days trail",
+        link: "https://www.linode.com/",
+        points: [
+          {
+            id: 1,
+            icon: <IoIosCheckmarkCircle />,
+            text: "4 Cores CPU",
+            isAvailable: true,
+          },
+          {
+            id: 2,
+            icon: <IoIosCheckmarkCircle />,
+            text: "8GB Memory",
+            isAvailable: true,
+          },
+          {
+            id: 3,
+            icon: <IoIosCheckmarkCircle />,
+            text: "160GB SSD",
+            isAvailable: true,
+          },
+          {
+            id: 4,
+            icon: <IoIosCheckmarkCircle />,
+            text: "5TB Transfer Bandwidth",
+            isAvailable: true,
+          },
+        ],
+      },
+      {
+        id: 3,
+        headerIcon: <IoIosCheckmarkCircle />,
+        name: "Vultr",
+        description: "High Performance Compute",
+        currentPlan: "hourly",
+        priceWithUnit: hourlyPrice["Vultr"],
+        buttonText: "Create account",
+        anotherOption: "Or Start 14 Days trail",
+        link: "https://www.vultr.com/",
+        points: [
+          {
+            id: 1,
+            icon: <IoIosCheckmarkCircle />,
+            text: "4 Cores CPU",
+            isAvailable: true,
+          },
+          {
+            id: 2,
+            icon: <IoIosCheckmarkCircle />,
+            text: "8GB Memory",
+            isAvailable: true,
+          },
+          {
+            id: 3,
+            icon: <IoIosCheckmarkCircle />,
+            text: "160GB SSD",
+            isAvailable: true,
+          },
+          {
+            id: 4,
+            icon: <IoIosCheckmarkCircle />,
+            text: "4TB Transfer Bandwidth",
+            isAvailable: true,
+          },
+        ],
+      },
+    ],
+    monthly: [
+      {
+        id: 1,
+        name: "Digital Ocean",
+        description: "CPU-Optimized Droplets",
+        currentPlan: "monthly",
+        buttonText: "Create account",
+        priceWithUnit: monthlyPrice["Digital Ocean"],
+        link: "https://www.digitalocean.com/",
+        points: [
+          {
+            id: 1,
+            icon: <IoIosCheckmarkCircle />,
+            text: "4vCPUs",
+            isAvailable: true,
+          },
+          {
+            id: 2,
+            icon: <IoIosCheckmarkCircle />,
+            text: "8GB Memory",
+            isAvailable: true,
+          },
+          {
+            id: 3,
+            icon: <IoIosCheckmarkCircle />,
+            text: "100GB SSD",
+            isAvailable: true,
+          },
+          {
+            id: 4,
+            icon: <IoIosCheckmarkCircle />,
+            text: "5TB Transfer Bandwidth",
+            isAvailable: true,
+          },
+        ],
+      },
+      {
+        id: 2,
+        name: "Linode",
+        description: "Dedicated CPU Plans",
+        priceWithUnit: monthlyPrice["Linode"],
+        currentPlan: "monthly",
+        buttonText: "Create account",
+        anotherOption: "Or Start 14 Days trail",
+        link: "https://www.linode.com/",
+        points: [
+          {
+            id: 1,
+            icon: <IoIosCheckmarkCircle />,
+            text: "4 Cores CPU",
+            isAvailable: true,
+          },
+          {
+            id: 2,
+            icon: <IoIosCheckmarkCircle />,
+            text: "8GB Memory",
+            isAvailable: true,
+          },
+          {
+            id: 3,
+            icon: <IoIosCheckmarkCircle />,
+            text: "160GB SSD",
+            isAvailable: true,
+          },
+          {
+            id: 4,
+            icon: <IoIosCheckmarkCircle />,
+            text: "5TB Transfer Bandwidth",
+            isAvailable: true,
+          },
+        ],
+      },
+      {
+        id: 3,
+        headerIcon: <IoIosCheckmarkCircle />,
+        name: "Vultr",
+        description: "High Performance Compute",
+        currentPlan: "monthly",
+        priceWithUnit: monthlyPrice["Vultr"],
+        buttonText: "Create account",
+        anotherOption: "Or Start 14 Days trail",
+        link: "https://www.vultr.com/",
+        points: [
+          {
+            id: 1,
+            icon: <IoIosCheckmarkCircle />,
+            text: "4 Cores CPU",
+            isAvailable: true,
+          },
+          {
+            id: 2,
+            icon: <IoIosCheckmarkCircle />,
+            text: "8GB Memory",
+            isAvailable: true,
+          },
+          {
+            id: 3,
+            icon: <IoIosCheckmarkCircle />,
+            text: "160GB SSD",
+            isAvailable: true,
+          },
+          {
+            id: 4,
+            icon: <IoIosCheckmarkCircle />,
+            text: "4TB Transfer Bandwidth",
+            isAvailable: true,
+          },
+        ],
+      },
+    ],
+  };
+
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+      draggable: false,
+    },
+    tablet: {
+      breakpoint: { max: 1023, min: 640 },
+      items: 2,
+      draggable: true,
+    },
+    mobile: {
+      breakpoint: { max: 639, min: 0 },
+      items: 1,
+      draggable: true,
+    },
+  };
+
   const { hourly, monthly } = packages;
   const [state, setState] = useState({
     active: "hourly",
@@ -296,7 +320,10 @@ export default function Package() {
   return (
     <section id="pricing" sx={styles.comparisonPage}>
       <Container>
-        <SectionHeader slogan="Virtual Machine Pricing" title="Choose The Best Pricing Plan" />
+        <SectionHeader
+          slogan="Virtual Machine Pricing"
+          title="Choose The Best Pricing Plan"
+        />
         <Flex sx={styles.buttonGroup}>
           <Box sx={styles.buttonGroupInner}>
             <button
