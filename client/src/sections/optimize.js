@@ -6,8 +6,20 @@ import { Container, Box, Alert, Close, Select } from "theme-ui";
 import OptimizeForm from "components/optimize_form";
 
 export default function OptimizeBanner() {
+  const [data, setData] = useState({})
   const [casesType, setCasesType] = useState("AWS");
   const [alert, showAlert] = useState(true);
+
+  // Add Optimization
+  const addOptimization = async (optimizationValues) => {
+    console.log(optimizationValues);
+    const { data } = await axios.post(
+      "http://127.0.0.1:5000/optimize",
+      optimizationValues
+    );
+    console.log(data);
+    setData(data);
+  };
 
   const changeCaseType = (e) => {
     setCasesType(e.target.value);
@@ -21,7 +33,7 @@ export default function OptimizeBanner() {
     <section sx={styles.formPage}>
       <Container sx={styles.containerBox}>
         <Box sx={styles.contentBox}>
-          <OptimizeForm />
+          <OptimizeForm onAdd={addOptimization}/>
         </Box>
         <Box sx={styles.thumbnail}>
           <Select
