@@ -1,41 +1,24 @@
 import { useState } from "react";
-import { Label, Input, Select, Button, Slider, Box, Grid } from "theme-ui";
+import { Label, Input, Select, Button } from "theme-ui";
 
 export default function OptimizeForms({ onAdd }) {
   const [cloudProvider, setCloudProvider] = useState("AWS");
   const [cpuCores, setCpuCores] = useState(2);
-  const [bandwidth, setBandwidth] = useState(16);
-  const [instances, setInstances] = useState(2);
-  const [hour1, setHour1] = useState("");
-  const [hour2, setHour2] = useState("");
-  const [dayStart, setDayStart] = useState("");
-  const [dayEnd, setDayEnd] = useState("");
-  const [monthStart, setMonthStart] = useState("");
-  const [monthEnd, setMonthEnd] = useState("");
+  const [payValue, setPayValue] = useState("");
+  const [spotValue, setSpotValue] = useState("");
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(parseInt(cpuCores));
-    const prediction = {
-      "CPU Cores": parseInt(cpuCores),
-      Memory: parseInt(memory),
-      Bandwidth: parseInt(bandwidth),
-      Instances: parseInt(instances),
-      "Hour 1": parseFloat(hour1),
-      "Hour 2": parseFloat(hour2),
-      "Day Start": parseFloat(dayStart),
-      "Day End": parseFloat(dayEnd),
-      "Month Start": parseFloat(monthStart),
-      "Month End": parseFloat(monthEnd),
+    const optimizationValues = {
+      "Cloud": cloudProvider,
+      "Cores": parseInt(cpuCores),
+      "Pay": parseFloat(payValue),
+      "Spot": parseFloat(spotValue),
     };
 
-    onAdd(prediction);
-    setHour1("");
-    setHour2("");
-    setDayStart("");
-    setDayEnd("");
-    setMonthStart("");
-    setMonthEnd("");
+    onAdd(optimizationValues);
+    setPayValue("");
+    setSpotValue("");
   };
 
   return (
@@ -71,26 +54,26 @@ export default function OptimizeForms({ onAdd }) {
       <Box>
         <Label>Pay Value</Label>
         <Input
-          value={hour1}
+          value={payValue}
           name="Hour1"
           id="Hour1"
           mb={3}
           sx={styles.forms.input}
           onChange={(e) => {
-            setHour1(e.target.value);
+            setPayValue(e.target.value);
           }}
         />
       </Box>
       <Box>
         <Label>Sport Value</Label>
         <Input
-          value={hour2}
+          value={spotValue}
           name="Hour2"
           id="Hour2"
           mb={3}
           sx={styles.forms.input}
           onChange={(e) => {
-            setHour2(e.target.value);
+            setSpotValue(e.target.value);
           }}
         />
       </Box>
