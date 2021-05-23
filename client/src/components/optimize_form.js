@@ -10,7 +10,7 @@ export default function OptimizeForms({ onAdd }) {
   const onSubmit = (e) => {
     e.preventDefault();
     if (payValue === "" || spotValue === ""){
-      alert("No Values provided for optimization")
+      alert("Pay and Spot pricing are required for optimization")
       return
     }
     const optimizationValues = {
