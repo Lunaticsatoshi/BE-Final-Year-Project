@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { jsx } from "theme-ui";
 import { Container, Box, Alert, Close, Select } from "theme-ui";
@@ -9,7 +9,6 @@ import Performance from "assets/feature/performance.svg";
 
 export default function OptimizeBanner() {
   const [data, setData] = useState({});
-  const [casesType, setCasesType] = useState("AWS");
   const [alert, showAlert] = useState(true);
 
   // Add Optimization
@@ -21,10 +20,6 @@ export default function OptimizeBanner() {
     );
     console.log(data);
     setData(data);
-  };
-
-  const changeCaseType = (e) => {
-    setCasesType(e.target.value);
   };
 
   const closeAlert = () => {
