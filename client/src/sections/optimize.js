@@ -2,7 +2,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { jsx } from "theme-ui";
-import { Container, Box, Alert, Close, Select } from "theme-ui";
+import { Container, Box, Alert, Close } from "theme-ui";
 import OptimizeForm from "components/optimize_form";
 import FeatureCard from "components/feature-card.js";
 import Performance from "assets/feature/performance.svg";
