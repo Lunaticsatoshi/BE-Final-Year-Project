@@ -1,7 +1,7 @@
 import {useState} from "react"
 import { Label, Input, Select, Button, Slider, Box, Grid } from "theme-ui";
 
-export default function Forms({onAdd}) {
+export default function OptimizeForms({onAdd}) {
   const [cpuCores, setCpuCores] = useState(2);
   const [memory, setMemory] = useState(2);
   const [bandwidth, setBandwidth] = useState(16);
