@@ -29,8 +29,8 @@ class Optimize(Resource):
         input_array = [[first,second,third,args["Cores"],args["Pay"],args["Spot"]]]
         optimization_result = optimize_cloud_price(input_array)
         if optimization_result > 0.5:
-            result = jsonify({"prediction": optimization_result, "message": "You have selected a great deal"})
+            result = jsonify({"prediction": optimization_result, "message": "You have selected a great deal!", "text": "The cloud parameters that you have provided returns the optimum results for the cloud service provider you are going for and will not cost you performance or scalability"})
         else:
-            result = jsonify({"prediction": optimization_result, "message": "Please change any one of the selected parameters"})
+            result = jsonify({"prediction": optimization_result, "message": "The selected deal can be better", "text": "The cloud parameters that you have provided  does not return the optimum results for the cloud service provider you are going for. Please change any one of the selected parameters"})
 
         return result
