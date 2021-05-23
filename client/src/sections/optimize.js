@@ -4,9 +4,11 @@ import axios from "axios";
 import { jsx } from "theme-ui";
 import { Container, Box, Alert, Close, Select } from "theme-ui";
 import OptimizeForm from "components/optimize_form";
+import FeatureCard from "components/feature-card.js";
+import Performance from "assets/feature/performance.svg";
 
 export default function OptimizeBanner() {
-  const [data, setData] = useState({})
+  const [data, setData] = useState({});
   const [casesType, setCasesType] = useState("AWS");
   const [alert, showAlert] = useState(true);
 
@@ -33,25 +35,22 @@ export default function OptimizeBanner() {
     <section sx={styles.formPage}>
       <Container sx={styles.containerBox}>
         <Box sx={styles.contentBox}>
-          <OptimizeForm onAdd={addOptimization}/>
+          <OptimizeForm onAdd={addOptimization} />
         </Box>
         <Box sx={styles.thumbnail}>
-          <Select
-            name="caseType"
-            id="CASETYPE"
-            mb={3}
-            sx={styles.selectInput}
-            onChange={changeCaseType}
-          >
-            <option>AWS</option>
-            <option>GCP</option>
-            <option>Azure</option>
-          </Select>
           {alert && (
             <Alert sx={styles.alerts} onClick={closeAlert}>
-              Beep boop, this is an alert!
+              {data.message}
               <Close ml="auto" mr={-2} />
             </Alert>
+          )}
+          {data.message && (
+            <FeatureCard
+              src={Performance}
+              altText={data.message}
+              title={data.message}
+              text={data.message}
+            />
           )}
         </Box>
       </Container>
