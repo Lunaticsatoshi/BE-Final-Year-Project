@@ -14,8 +14,11 @@ export default function Forms({onAdd}) {
   const [monthEnd, setMonthEnd] = useState("");
 
   const onSubmit = (e) => {
-    e.preventDefault()
-    console.log(parseInt(cpuCores));
+    e.preventDefault();
+    if (hour1 === "" || hour2 === ""|| dayStart === "" || dayEnd === "" || monthStart === "" || monthEnd === ""){
+      alert("One or more values missing for prediction");
+      return
+    }
     const prediction = {
       "CPU Cores": parseInt(cpuCores),
       "Memory": parseInt(memory),
