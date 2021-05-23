@@ -9,6 +9,10 @@ export default function OptimizeForms({ onAdd }) {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    if (payValue === "" || spotValue === ""){
+      alert("No Values provided for optimization")
+      return
+    }
     const optimizationValues = {
       "Cloud": cloudProvider,
       "Cores": parseInt(cpuCores),
