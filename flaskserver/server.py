@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Api, Resource
 from flask_cors import CORS
-from controllers.api import HelloWorld
+from controllers.api import PriceComparison
 from controllers.prediction import Prediction
 from controllers.optimize import Optimize
 
@@ -13,7 +13,7 @@ api = Api(app)
 # def hello_world():
 #     return "hello World"
 
-api.add_resource(HelloWorld, "/")
+api.add_resource(PriceComparison, "/compare")
 api.add_resource(Prediction, "/predict")
 api.add_resource(Optimize, "/optimize")
 
