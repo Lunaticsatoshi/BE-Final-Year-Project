@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { jsx } from "theme-ui";
 import { Container, Box, Alert, Close, Select } from "theme-ui";
-import Forms from "components/Forms";
+import Forms from "components/optimize_form";
 
 export default function OptimizeBanner() {
   const [casesType, setCasesType] = useState("AWS");
