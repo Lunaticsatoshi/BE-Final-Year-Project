@@ -15,7 +15,7 @@ export default function OptimizeBanner() {
   const addOptimization = async (optimizationValues) => {
     console.log(optimizationValues);
     const { data } = await axios.post(
-      "http://127.0.0.1:5000/optimize",
+      "https://cloudy-web-api.herokuapp.com/optimize",
       optimizationValues
     );
     console.log(data);
