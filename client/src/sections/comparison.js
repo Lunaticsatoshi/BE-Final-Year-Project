@@ -24,7 +24,7 @@ export default function Package() {
 
   const fetchDailyPrices =  async () => {
     try {
-      const { data } = await axios.get("http://127.0.0.1:5000/compare");
+      const { data } = await axios.get("https://cloudy-web-api.herokuapp.com/compare");
       console.log(data);
       return data
     } catch (error) {
