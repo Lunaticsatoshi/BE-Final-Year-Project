@@ -52,7 +52,7 @@ export default function Banner() {
   const addPrediction = async (prediction) => {
     console.log(prediction);
     const { data } = await axios.post(
-      "http://127.0.0.1:5000/predict",
+      "https://cloudy-web-api.herokuapp.com/predict",
       prediction
     );
     setData(data);
