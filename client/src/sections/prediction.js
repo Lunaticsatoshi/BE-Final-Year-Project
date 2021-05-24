@@ -19,7 +19,6 @@ export default function Banner() {
       const dailyData = await fetchDailyData();
       setData(dailyData);
       let chartData = buildChartData(dailyData, casesType);
-      console.log(chartData);
       setLineData(chartData);
     };
 
@@ -28,7 +27,7 @@ export default function Banner() {
 
   const fetchDailyData = async () => {
     try {
-      const { data } = await axios.post("http://127.0.0.1:5000/predict", {
+      const { data } = await axios.post("https://cloudy-web-api.herokuapp.com/predict", {
         "CPU Cores": 2,
         Memory: 4,
         Bandwidth: 128,
@@ -40,8 +39,6 @@ export default function Banner() {
         "Month Start": 255.34,
         "Month End": 345.56,
       });
-
-      console.log(data);
       return data;
     } catch (error) {
       return error;
