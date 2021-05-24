@@ -18,7 +18,6 @@ export default function OptimizeBanner() {
       "https://cloudy-web-api.herokuapp.com/optimize",
       optimizationValues
     );
-    console.log(data);
     setData(data);
   };
 
