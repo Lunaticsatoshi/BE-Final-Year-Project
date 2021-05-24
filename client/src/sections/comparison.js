@@ -25,14 +25,11 @@ export default function Package() {
   const fetchDailyPrices =  async () => {
     try {
       const { data } = await axios.get("https://cloudy-web-api.herokuapp.com/compare");
-      console.log(data);
       return data
     } catch (error) {
       return error;
     }
   }
-
-  console.log(hourlyPrice["Linode"]);
   const packages = {
     hourly: [
       {
